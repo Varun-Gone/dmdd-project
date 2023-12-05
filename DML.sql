@@ -15,9 +15,27 @@ BEGIN
     DBMS_OUTPUT.put_line('Data of patient is stored');
     commit;
 EXCEPTION
+    when ACCESS_INTO_NULL then
+        DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
+        rollback;
+    when CASE_NOT_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Please check when clause');
+        rollback;    
+    when PROGRAM_ERROR then
+        DBMS_OUTPUT.PUT_LINE('PL/SQL internal error');
+        rollback;
+    when ROWTYPE_MISMATCH then
+        DBMS_OUTPUT.PUT_LINE('pl/sql has incompatible return typer');
+        rollback;
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('No data exists');
+        rollback;
+    WHEN DUP_VAL_ON_INDEX Then
+        DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+        rollback;
     WHEN others THEN
-    DBMS_OUTPUT.PUT_LINE('ERROR WHILE ENTERING DETAILS of PATIENT');
-    rollback;
+        DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
+        rollback;
 END ADD_PATIENT;
 
 /
@@ -35,6 +53,9 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Doctors deatils has been added in the tale');
     commit;
 EXCEPTION
+    WHEN DUP_VAL_ON_INDEX Then
+     DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+     rollback;
     WHEN others THEN
     DBMS_OUTPUT.PUT_LINE('ERROR WHILE ENTERING DETAILS of DOCTOR');
     rollback;
@@ -55,9 +76,27 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('DATA IS ADDED SUCCESSFULLY! ');
     commit;
 EXCEPTION
+    when ACCESS_INTO_NULL then
+        DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
+        rollback;
+    when CASE_NOT_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Please check when clause');
+        rollback;    
+    when PROGRAM_ERROR then
+        DBMS_OUTPUT.PUT_LINE('PL/SQL internal error');
+        rollback;
+    when ROWTYPE_MISMATCH then
+        DBMS_OUTPUT.PUT_LINE('pl/sql has incompatible return typer');
+        rollback;
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('No data exists');
+        rollback;
+    WHEN DUP_VAL_ON_INDEX Then
+        DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+        rollback;
     WHEN others THEN
-    DBMS_OUTPUT.PUT_LINE('ERROR WHILE ENTERING DETAILS of NURSE');
-    rollback;
+        DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
+        rollback;
 
 End add_NURSE;
 /
@@ -76,9 +115,27 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('DRUG DATA HAS BEEN ENTERED');
     commit;
 EXCEPTION
+    when ACCESS_INTO_NULL then
+        DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
+        rollback;
+    when CASE_NOT_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Please check when clause');
+        rollback;    
+    when PROGRAM_ERROR then
+        DBMS_OUTPUT.PUT_LINE('PL/SQL internal error');
+        rollback;
+    when ROWTYPE_MISMATCH then
+        DBMS_OUTPUT.PUT_LINE('pl/sql has incompatible return typer');
+        rollback;
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('No data exists');
+        rollback;
+    WHEN DUP_VAL_ON_INDEX Then
+        DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+        rollback;
     WHEN others THEN
-    DBMS_OUTPUT.PUT_LINE('ERROR Occur while executing data');
-    rollback;
+        DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
+        rollback;
 END ADD_DRUG;
 
 /
@@ -95,9 +152,27 @@ BEGIN
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
+    when ACCESS_INTO_NULL then
+        DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
+        rollback;
+    when CASE_NOT_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Please check when clause');
+        rollback;    
+    when PROGRAM_ERROR then
+        DBMS_OUTPUT.PUT_LINE('PL/SQL internal error');
+        rollback;
+    when ROWTYPE_MISMATCH then
+        DBMS_OUTPUT.PUT_LINE('pl/sql has incompatible return typer');
+        rollback;
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('No data exists');
+        rollback;
+    WHEN DUP_VAL_ON_INDEX Then
+        DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+        rollback;
     WHEN others THEN
-    DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering test data');
-    rollback;
+        DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
+        rollback;
 END ADD_TEST;
 
 /
@@ -119,9 +194,27 @@ BEGIN
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
+    when ACCESS_INTO_NULL then
+        DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
+        rollback;
+    when CASE_NOT_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Please check when clause');
+        rollback;    
+    when PROGRAM_ERROR then
+        DBMS_OUTPUT.PUT_LINE('PL/SQL internal error');
+        rollback;
+    when ROWTYPE_MISMATCH then
+        DBMS_OUTPUT.PUT_LINE('pl/sql has incompatible return typer');
+        rollback;
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('No data exists');
+        rollback;
+    WHEN DUP_VAL_ON_INDEX Then
+        DBMS_OUTPUT.PUT_LINE('Same data detected, Please check the Unique Datas');
+        rollback;
     WHEN others THEN
-    DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering patients record data' );
-    rollback;
+        DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
+        rollback;
 END ADD_PRECORD;
 
 /
