@@ -1,6 +1,7 @@
---Drug administration update
-CREATE OR REPLACE PROCEDURE UPDATE_DRUGADMINISTRATION(
-    v_da_id DrugAdministration.DrugAdministrationID%TYPE,
+set SERVEROUTPUT ON;
+
+--Drrug administration table insert
+CREATE OR REPLACE PROCEDURE ADD_DRUGADMINISTRATION(
     v_da_pn DrugAdministration.PrescriptionNo%TYPE,
     v_da_dam DrugAdministration.DateAdministered%TYPE ,
     v_da_drid DrugAdministration.DrugId%TYPE,
@@ -9,10 +10,8 @@ CREATE OR REPLACE PROCEDURE UPDATE_DRUGADMINISTRATION(
     v_da_nid DrugAdministration.NurseId%TYPE)    
 AS    
 BEGIN
-    update DrugAdministration set DrugAdministrationID = v_da_id, PrescriptionNo = v_da_pn, DateAdministered = v_da_dam , DrugId = v_da_drid, PatientId= v_da_pid, DoctorId= v_da_did, 
-    NurseId= v_da_nid
-    where DrugAdministrationID = v_da_id;
-    DBMS_OUTPUT.put_line('Data is updated Successfully!');
+    insert into DrugAdministration (PrescriptionNo, DateAdministered, DrugId, PatientId, DoctorId, NurseId) values (v_da_pn, v_da_dam,v_da_drid, v_da_pid, v_da_did, v_da_pid);
+    DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
     when ACCESS_INTO_NULL then
@@ -36,7 +35,7 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-End UPDATE_DRUGADMINISTRATION;
+End add_drugadministration;
 /
 
 
@@ -45,24 +44,20 @@ End UPDATE_DRUGADMINISTRATION;
 
 
 
-
--- testadministration update
-CREATE OR REPLACE PROCEDURE UPDATE_TESTADMINISTRATION(
-    va_ta_id TestAdministrationRecords.TestAdministrationID%TYPE, 
-    v_ta_pn TestAdministrationRecords.DateAdministered%TYPE,
-    v_ta_dam TestAdministrationRecords.TestResult%TYPE ,
-    v_ta_drid TestAdministrationRecords.TestID%TYPE,
-    v_ta_pid TestAdministrationRecords.DoctorId%TYPE,
-    v_ta_did TestAdministrationRecords.NurseId%TYPE)
+-- testadministration record insertation
+CREATE OR REPLACE PROCEDURE ADD_TESTADMINISTRATION(
+    v_da_pn TestAdministrationRecords.DateAdministered%TYPE,
+    v_da_dam TestAdministrationRecords.TestResult%TYPE ,
+    v_da_drid TestAdministrationRecords.TestID%TYPE,
+    v_da_pid TestAdministrationRecords.DoctorId%TYPE,
+    v_da_did TestAdministrationRecords.NurseId%TYPE)
 AS    
 BEGIN
-    update TestAdministrationRecords set TestAdministrationID = va_ta_id, DateAdministered=v_ta_pn, TestResult=v_ta_dam ,TestID=v_ta_drid ,DoctorId=v_ta_pid, 
-    NurseId=v_ta_did  
-    where TestAdministrationID = va_ta_id;
-    DBMS_OUTPUT.put_line('Data is updated Successfully!');
+    insert into TestAdministrationRecords (DateAdministered, TestResult, TestID, DoctorId, NurseId)values (v_da_pn, v_da_dam,v_da_drid, v_da_pid, v_da_did);
+    DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
-        when ACCESS_INTO_NULL then
+    when ACCESS_INTO_NULL then
         DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
         rollback;
     when CASE_NOT_FOUND then
@@ -83,7 +78,7 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-End UPDATE_TESTADMINISTRATION;
+End ADD_TESTADMINISTRATION;
 /
 
 
@@ -93,21 +88,18 @@ End UPDATE_TESTADMINISTRATION;
 
 
 
-
--- test records update
-CREATE OR REPLACE PROCEDURE update_test_record(
-    v_tr_id TestRecords.TestRecordID%TYPE, 
+-- test records insertation
+CREATE OR REPLACE PROCEDURE add_test_record(
     v_tr_rid TestRecords.RecordID%TYPE,
     v_tr_tsaid TestRecords.TestAdministrationID%TYPE
 )
 AS    
 BEGIN
-    update TestRecords set TestRecordID = v_tr_id, RecordID=v_tr_rid, 
-    TestAdministrationID=v_tr_tsaid where TestRecordID = v_tr_id;
-    DBMS_OUTPUT.put_line('Data is updated Successfully!');
+    Insert INTO TestRecords (RecordID, TestAdministrationID) values(v_tr_rid, v_tr_tsaid);
+    DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
-        when ACCESS_INTO_NULL then
+    when ACCESS_INTO_NULL then
         DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
         rollback;
     when CASE_NOT_FOUND then
@@ -128,30 +120,27 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-END update_test_record;
+END add_test_record;
 /
 
 
 
 
 
-
-
-
--- shift records update
-CREATE OR REPLACE PROCEDURE update_shift(
-    v_s_oldnid SHIFTS.Nurseid%TYPE,
+--Shift records
+CREATE OR REPLACE PROCEDURE add_shift(
     v_s_nid SHIFTS.Nurseid%TYPE,
-    v_s_did SHIFTS.DoctorID%TYPE
+    v_s_did SHIFTS.DoctorID%TYPE,
+    v_s_ts SHIFTS.ShiftStartTime%TYPE,
+    v_s_te SHIFTS.ShiftEndTime%TYPE
 )
 AS    
 BEGIN
-    
-    update SHIFTS set Nurseid = v_s_nid, DoctorID = v_s_did where Nurseid = v_s_oldnid;
-    DBMS_OUTPUT.put_line('Data is updated Successfully!');
+    Insert INTO shifts values(v_s_nid, v_s_did, v_s_ts,v_s_te);
+    DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
-        when ACCESS_INTO_NULL then
+    when ACCESS_INTO_NULL then
         DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
         rollback;
     when CASE_NOT_FOUND then
@@ -172,7 +161,7 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-END update_shift;
+END add_shift;
 /
 
 
@@ -182,20 +171,18 @@ END update_shift;
 
 
 
--- patients records update
-CREATE OR REPLACE PROCEDURE Update_patientrecord(
-    v_pr_id PatientRecord.PatientRecordID%TYPE,
+-- patients record table
+CREATE OR REPLACE PROCEDURE Add_patientrecord(
     v_pr_pid PatientRecord.PatientId%TYPE,
     v_pr_dcid PatientRecord.DoctorId%TYPE
 )
 AS    
 BEGIN
-    update PatientRecord set PatientRecordID = v_pr_id, PatientId=v_pr_pid, 
-    DoctorId=v_pr_dcid where PatientRecordID = v_pr_id;
+    Insert INTO PatientRecord (PatientId,DoctorId) values( v_pr_pid,v_pr_dcid);
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
-        when ACCESS_INTO_NULL then
+    when ACCESS_INTO_NULL then
         DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
         rollback;
     when CASE_NOT_FOUND then
@@ -216,7 +203,7 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-END Update_patientrecord;
+END Add_patientrecord;
 /
 
 
@@ -226,20 +213,20 @@ END Update_patientrecord;
 
 
 
--- Drug record update
-CREATE OR REPLACE PROCEDURE Update_DrugRecord(
-    v_dr_id DrugRecord.DrugRecordID%TYPE,
+-- Drug record
+CREATE OR REPLACE PROCEDURE Add_DrugRecord(
+
     v_dr_daid DrugRecord.DrugAdministrationID%TYPE,
     v_dr_drd DrugRecord.RecordID%TYPE
 )
 AS    
 BEGIN
-    update DrugRecord set DrugRecordID = v_dr_id, DrugAdministrationID=v_dr_daid, 
-    RecordID=v_dr_drd where DrugRecordID = v_dr_id;
+    
+    Insert INTO DrugRecord (DrugAdministrationID,RecordID) values( v_dr_daid,v_dr_drd);
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
-        when ACCESS_INTO_NULL then
+    when ACCESS_INTO_NULL then
         DBMS_OUTPUT.PUT_LINE('Please check unassign attribute');
         rollback;
     when CASE_NOT_FOUND then
@@ -260,5 +247,8 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-END Update_DrugRecord;
+END Add_DrugRecord;
 /
+
+
+select * from drugadministration, testrecords;
