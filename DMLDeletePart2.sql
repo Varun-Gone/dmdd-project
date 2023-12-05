@@ -81,7 +81,7 @@ End DELETE_TESTADMINISTRATION;
 
 
 -- test records update
-CREATE OR REPLACE PROCEDURE update_test_record(
+CREATE OR REPLACE PROCEDURE delete_test_record(
     v_tr_id TestRecords.TestRecordID%TYPE 
 )
 AS    
@@ -111,7 +111,7 @@ EXCEPTION
     WHEN others THEN
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
-END update_test_record;
+END delete_test_record;
 /
 
 
