@@ -10,7 +10,7 @@ CREATE OR REPLACE PROCEDURE ADD_DRUGADMINISTRATION(
     v_da_nid DrugAdministration.NurseId%TYPE)    
 AS    
 BEGIN
-    insert into DrugAdministration (PrescriptionNo, DateAdministered, DrugId, PatientId, DoctorId, NurseId) values (v_da_pn, v_da_dam,v_da_drid, v_da_pid, v_da_did, v_da_pid);
+    insert into DrugAdministration (PrescriptionNo, DateAdministered, DrugId, PatientId, DoctorId, NurseId) values (v_da_pn, v_da_dam,v_da_drid, v_da_pid, v_da_did, v_da_nid);
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
@@ -46,14 +46,14 @@ End add_drugadministration;
 
 -- testadministration record insertation
 CREATE OR REPLACE PROCEDURE ADD_TESTADMINISTRATION(
-    v_da_pn TestAdministrationRecords.DateAdministered%TYPE,
-    v_da_dam TestAdministrationRecords.TestResult%TYPE ,
-    v_da_drid TestAdministrationRecords.TestID%TYPE,
-    v_da_pid TestAdministrationRecords.DoctorId%TYPE,
-    v_da_did TestAdministrationRecords.NurseId%TYPE)
+    v_ta_pn TestAdministrationRecords.DateAdministered%TYPE,
+    v_ta_dam TestAdministrationRecords.TestResult%TYPE ,
+    v_ta_drid TestAdministrationRecords.TestID%TYPE,
+    v_ta_pid TestAdministrationRecords.DoctorId%TYPE,
+    v_ta_did TestAdministrationRecords.NurseId%TYPE)
 AS    
 BEGIN
-    insert into TestAdministrationRecords (DateAdministered, TestResult, TestID, DoctorId, NurseId)values (v_da_pn, v_da_dam,v_da_drid, v_da_pid, v_da_did);
+    insert into TestAdministrationRecords (DateAdministered, TestResult, TestID, DoctorId, NurseId)values (v_ta_pn, v_ta_dam,v_ta_drid, v_ta_pid, v_ta_did);
     DBMS_OUTPUT.put_line('Data is loaded Successfully!');
     commit;
 EXCEPTION
@@ -248,7 +248,3 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('ERROR Occur while entering drug administration records or may be user does not have access to perform this task');
         rollback;
 END Add_DrugRecord;
-/
-
-
-select * from drugadministration, testrecords;
