@@ -1,6 +1,6 @@
 
 # DMDD-Cancer-drug-research-and-development-database-system-project
-The ambition of this project is to provide a system that improves and integrates the database system for cancer drug discovery teams (such as doctors, Nurses, and Patients) and provides analysis, tracking drugs efficiency and improving patient's health.
+The aim of this project is to provide a system that improves and integrates the database system for cancer drug discovery teams (such as doctors, Nurses, and Patients) and provides analysis, tracking drugs efficiency and improving patient's health.
  
 ## Members
 ```
